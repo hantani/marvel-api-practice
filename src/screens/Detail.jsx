@@ -1,11 +1,25 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Loading from "../components/Loading";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   min-height: calc(100vh - 100px);
+  max-width: 600px;
+  margin: 0 auto;
+  position: relative;
+`;
+const BackBtn = styled.button`
+  color: ${(props) => props.theme.fontColor};
+  font-size: 28px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid ${(props) => props.theme.fontColor};
+  border-radius: 4px;
 `;
 const ImgWrapper = styled.div`
   text-align: center;
@@ -19,8 +33,6 @@ const ImgWrapper = styled.div`
 `;
 const TextWrapper = styled.div`
   padding-top: 40px;
-  margin: 0 auto;
-  max-width: 600px;
 
   h2 {
     font-size: 26px;
@@ -45,8 +57,6 @@ const TextWrapper = styled.div`
 `;
 const LinksWrapper = styled.div`
   padding-top: 40px;
-  margin: 0 auto;
-  max-width: 600px;
 
   ul {
     li {
@@ -64,8 +74,8 @@ const LinksWrapper = styled.div`
 function Detail() {
   const [loading, setLoading] = useState(true);
   const [result, setResult] = useState();
-
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -80,12 +90,17 @@ function Detail() {
     })();
   }, []);
 
+  const onBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       {loading ? (
         <Loading />
       ) : (
         <Wrapper>
+          <BackBtn onClick={onBackClick}>🔙</BackBtn>
           <ImgWrapper>
             <img
               src={`${result.thumbnail.path}.${result.thumbnail.extension}`}

@@ -35,13 +35,14 @@ const TextWrapper = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  background-color: rgba(255, 255, 255, 1);
+  background-color: rgba(255, 255, 255, 0.8);
   transform: translateY(62px);
   transition: all 0.3s;
   h2 {
     font-size: 22px;
     font-weight: 500;
     text-decoration: none;
+    color: ${(props) => props.theme.fontColor};
   }
   p {
     font-size: 22px;
